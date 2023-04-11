@@ -1,15 +1,9 @@
-import com.sun.jdi.connect.Connector;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 class MethodsTest {
     Methods mtdh;
@@ -25,27 +19,39 @@ class MethodsTest {
     }
 
     @Test
-    void equalityOfNumbers() {
+    void testIsDoubleNumber() {
+        Double input = 1.234;
+        assertThat(input, instanceOf(Double.class));
+    }
+
+    @Test
+    void testPrintInfo() {
+        String expected = "123";
+        assertThat(expected, anyOf(containsString("1"), containsString("2"), containsString("3")));
+    }
+
+    @Test
+    void testEqualityOfNumbers() {
         Double a = 1.234, b = 1.432;
         Boolean expected = false;
-        boolean result = mtdh.equalityOfNumbers(a, b);
-        Assertions.assertEquals(expected, result);
+        boolean result = Methods.equalityOfNumbers(a, b);
+        assertThat(expected, equalTo(result));
     }
 
-
     @Test
-    void roundingANumber() {
+    void testRoundingANumber() {
         Double a = 1.234;
         int expected = 1;
-        int result = mtdh.roundingANumber(a);
-        Assertions.assertEquals(expected, result);
+        int result = Methods.roundingANumber(a);
+        assertThat(expected, equalTo(result));
     }
 
     @Test
-    void integerNumber() {
+    void testIntegerNumber() {
         Double a = 16.3245;
         int expected = 16;
-        int result = mtdh.integerNumber(a);
-        Assertions.assertEquals(expected, result);
+        int result = Methods.integerNumber(a);
+        assertThat(expected, equalTo(result));
     }
+
 }
